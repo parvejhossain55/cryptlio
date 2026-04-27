@@ -1,1 +1,10 @@
 go 1.22.12
+
+use (
+	./services/api-gateway
+	./services/wallet-service
+	./services/trade-engine
+	./services/kyc-service
+	./services/notification
+	./services/dispute-service
+)

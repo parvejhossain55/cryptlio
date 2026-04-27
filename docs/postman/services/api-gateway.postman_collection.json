@@ -1,0 +1,714 @@
+{
+	"info": {
+		"name": "Cryplio API Gateway",
+		"description": "Postman collection for Cryplio P2P Exchange API Gateway. Base URL: `{{baseUrl}}`",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health & Monitoring",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["health"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Liveness Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/live",
+							"host": ["{{baseUrl}}"],
+							"path": ["live"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Readiness Probe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ready",
+							"host": ["{{baseUrl}}"],
+							"path": ["ready"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"username\": \"johndoe\",\n  \"password\": \"SecurePass123!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "register"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePass123!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "login"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Profile (Authenticated)",
+			"item": [
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/users/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "users", "me"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"newusername\",\n  \"bio\": \"P2P trader\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/users/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "users", "me"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KYC (Authenticated)",
+			"item": [
+				{
+					"name": "Submit KYC",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document_type",
+									"value": "passport",
+									"type": "text"
+								},
+								{
+									"key": "document_file",
+									"src": "",
+									"type": "file"
+								},
+								{
+									"key": "selfie_file",
+									"src": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/kyc/submit",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "kyc", "submit"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get KYC Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/kyc/status",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "kyc", "status"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trade Ads (Public & Authenticated)",
+			"item": [
+				{
+					"name": "List Ads (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/ads?crypto=USDT&fiat=BDT&payment_method=bkash&limit=20",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "ads"],
+							"query": [
+								{
+									"key": "crypto",
+									"value": "USDT"
+								},
+								{
+									"key": "fiat",
+									"value": "BDT"
+								},
+								{
+									"key": "payment_method",
+									"value": "bkash"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ad by ID (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/ads/{{adId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "ads", "{{adId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Ad (Authenticated)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"sell\",\n  \"crypto\": \"USDT\",\n  \"fiat\": \"BDT\",\n  \"price_type\": \"fixed\",\n  \"price\": 120.5,\n  \"min_amount\": 1000,\n  \"max_amount\": 50000,\n  \"payment_methods\": [\"bkash\", \"nagad\"],\n  \"payment_window_minutes\": 30,\n  \"trade_terms\": \"Please pay within 30 minutes\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/ads",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "ads"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Ad (Authenticated)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price\": 122.0,\n  \"max_amount\": 100000\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/ads/{{adId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "ads", "{{adId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Ad (Authenticated)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/ads/{{adId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "ads", "{{adId}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Market Rates (Public)",
+			"item": [
+				{
+					"name": "Get Live Rates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/market/rates?base=USDT&quote=BDT",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "market", "rates"],
+							"query": [
+								{
+									"key": "base",
+									"value": "USDT"
+								},
+								{
+									"key": "quote",
+									"value": "BDT"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trades (Authenticated)",
+			"item": [
+				{
+					"name": "List Trades",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades?status=active&limit=20",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades"],
+							"query": [
+								{
+									"key": "status",
+									"value": "active"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Trade by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades/{{tradeId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades", "{{tradeId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiate Trade",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ad_id\": \"{{adId}}\",\n  \"fiat_amount\": 5000\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as Paid (Buyer)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"payment_method\": \"bkash\",\n  \"reference\": \"TXN123456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades/{{tradeId}}/paid",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades", "{{tradeId}}", "paid"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Release Escrow (Seller)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades/{{tradeId}}/release",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades", "{{tradeId}}", "release"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Trade",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"Buyer not responding\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades/{{tradeId}}/cancel",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades", "{{tradeId}}", "cancel"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Raise Dispute",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"payment_not_received\",\n  \"description\": \"Buyer claims payment sent but I haven't received it\",\n  \"evidence\": []\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/trades/{{tradeId}}/dispute",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "trades", "{{tradeId}}", "dispute"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wallet (Authenticated)",
+			"item": [
+				{
+					"name": "Get Balances",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/wallet/balance",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "wallet", "balance"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Deposit Address",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/wallet/deposit/address?crypto=USDT&network=TRC20",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "wallet", "deposit", "address"],
+							"query": [
+								{
+									"key": "crypto",
+									"value": "USDT"
+								},
+								{
+									"key": "network",
+									"value": "TRC20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Withdrawal",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"crypto\": \"USDT\",\n  \"amount\": 1000,\n  \"address\": \"0x...\",\n  \"network\": \"TRC20\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/wallet/withdraw",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "wallet", "withdraw"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/wallet/history?type=deposit&limit=50",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "wallet", "history"],
+							"query": [
+								{
+									"key": "type",
+									"value": "deposit"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications (Authenticated)",
+			"item": [
+				{
+					"name": "Get Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notifications?unread_only=true&limit=50",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notifications"],
+							"query": [
+								{
+									"key": "unread_only",
+									"value": "true"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Notification as Read",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwtToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notifications/{{notificationId}}/read",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notifications", "{{notificationId}}", "read"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "jwtToken",
+			"value": ""
+		},
+		{
+			"key": "adId",
+			"value": ""
+		},
+		{
+			"key": "tradeId",
+			"value": ""
+		},
+		{
+			"key": "notificationId",
+			"value": ""
+		}
+	]
+}

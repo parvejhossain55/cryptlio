@@ -1,0 +1,28 @@
+-- Cryplio Database Schema — DEPRECATED
+-- This monolithic schema has been split into focused, incremental migrations.
+--
+-- DO NOT USE THIS FILE. Instead, apply migrations in order:
+--
+--   000_types.sql
+--   001_core_tables.sql
+--   002_lookup_tables.sql
+--   003_kyc.sql
+--   004_trade_ads.sql
+--   005_trades.sql
+--   006_feedback.sql
+--   007_disputes.sql
+--   008_wallets.sql
+--   009_notifications.sql
+--   010_referrals.sql
+--   011_merchant.sql
+--   012_audit_admin.sql
+--   013_monitoring.sql
+--   014_views.sql
+--   015_triggers.sql
+--   016_seed_data.sql
+--
+-- This file remains for reference only. It contains the original single-batch
+-- schema design before refactoring into smaller migrations for better
+-- maintainability and CI/CD.
+--
+-- See README.md in this directory for migration guidelines.

@@ -1,0 +1,23 @@
+# Ignore build artifacts
+api-gateway
+*.log
+
+# Ignore local env files
+.env
+.env.local
+
+# Ignore Go build cache
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Ignore IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo

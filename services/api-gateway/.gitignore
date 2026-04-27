@@ -1,0 +1,7 @@
+# Git ignore
+api-gateway
+*.log
+.env
+.vscode/
+.idea/
+*.test
